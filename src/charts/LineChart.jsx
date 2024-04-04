@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { socket } from "../socket.js";
+import { io } from "socket.io-client";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -22,6 +22,7 @@ ChartJS.register(
 );
 
 export default function LineChart() {
+  const socket = io.connect("https://testbe-mongodb.onrender.com");
   const [temp, setTemp] = useState([]);
   const [humid, setHumid] = useState([]);
   const [timeStamp, setTimeStamp] = useState([]);
