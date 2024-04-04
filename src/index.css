@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "JetBrains Mono", monospace;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-weight: 400;
+  color-scheme: light dark;
+  background-color: #f4f5f9;
+  color: black;
+}
+
