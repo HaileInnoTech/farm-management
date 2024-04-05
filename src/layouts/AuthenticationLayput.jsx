@@ -32,6 +32,11 @@ function AuthenticationLayout() {
                     className="col-auto flex justify-center text-xl"
                     key={button.text}
                     onClick={() => setSwitchComponent(button.text)}
+                    style={
+                      button.text === switchComponent
+                        ? { color: "#000", borderBottom: "2px solid #000" }
+                        : { color: "#9CA3AF" }
+                    }
                   >
                     {button.text}
                   </button>
@@ -44,7 +49,10 @@ function AuthenticationLayout() {
                 <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                   {helperText}
 
-                  <button className="font-medium pl-2 text-blue-600 hover:underline dark:text-blue-500">
+                  <button
+                    className="font-medium pl-2 text-blue-600 hover:underline dark:text-blue-500"
+                    onClick={() => setSwitchComponent("")}
+                  >
                     {buttonText}
                   </button>
                 </p>

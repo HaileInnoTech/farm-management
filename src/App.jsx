@@ -8,8 +8,8 @@ function App() {
   return (
     <>
       {/* <NavigationBar /> */}
-      <SideBar />
-      {/* <AuthenticationLayout /> */}
+      {/* <SideBar /> */}
+      <AuthenticationLayout />
     </>
   );
 }
