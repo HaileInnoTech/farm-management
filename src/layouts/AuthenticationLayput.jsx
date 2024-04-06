@@ -13,12 +13,12 @@ function AuthenticationLayout() {
     },
     {
       text: "Sign Up",
-      component: Login,
+      component: SignUp,
     },
   ];
 
-  const helperText = "Don't have an account?";
-  const buttonText = "  Sign up";
+  const helperText = ["Don't have an account?", "Already have an Account?"];
+  const buttonText = ["Sign up", "Login"];
 
   return (
     <>
@@ -30,6 +30,7 @@ function AuthenticationLayout() {
                 {navButtons.map((button) => (
                   <button
                     className="col-auto flex justify-center text-xl"
+                    id={button.text}
                     key={button.text}
                     onClick={() => setSwitchComponent(button.text)}
                     style={
@@ -47,13 +48,19 @@ function AuthenticationLayout() {
 
               <div className="mt-1 flex justify-center">
                 <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                  {helperText}
+                  {switchComponent === "Login" ? helperText[0] : helperText[1]}
 
                   <button
                     className="font-medium pl-2 text-blue-600 hover:underline dark:text-blue-500"
-                    onClick={() => setSwitchComponent("")}
+                    onClick={() => {
+                      switchComponent === "Sign Up"
+                        ? setSwitchComponent("Login")
+                        : setSwitchComponent("Sign Up");
+                    }}
                   >
-                    {buttonText}
+                    {switchComponent === "Login"
+                      ? buttonText[0]
+                      : buttonText[1]}
                   </button>
                 </p>
               </div>
