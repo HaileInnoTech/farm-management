@@ -1,5 +1,3 @@
-import DashboardLayout from "./pages/DashboardLayout";
-import NavigationBar from "./pages/NavigationBar";
 import SideBar from "./pages/SideBar";
 import AuthenticationLayout from "./layouts/AuthenticationLayput";
 import "./index.css";

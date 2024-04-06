@@ -1,11 +1,19 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [isValid, setIsValid] = useState(true);
   const [password, setPassword] = useState("");
+  const navigation = useNavigate();
 
   const handleLogin = () => {
+    navigation("/dashboard");
     console.log("Login clicked");
+  };
+
+  const handleGoogleLogin = () => {
+    const url = "http://localhost:4000/login/oauth2/google";
+    window.open(url, "_blank", "width=500,height=600");
   };
   return (
     <>
@@ -108,7 +116,10 @@ export default function Login() {
             Facebook
           </span>
         </button>
-        <button className="flex items-center justify-center px-4 py-2 mt-2 space-x-3 text-sm text-center  text-gray-900 transition-colors duration-200 transform border rounded-lg dark:text-gray-300 dark:border-gray-300 hover:bg-gray-600 dark:hover:bg-gray-700">
+        <button
+          className="flex items-center justify-center px-4 py-2 mt-2 space-x-3 text-sm text-center  text-gray-900 transition-colors duration-200 transform border rounded-lg dark:text-gray-300 dark:border-gray-300 hover:bg-gray-600 dark:hover:bg-gray-700"
+          onClick={handleGoogleLogin}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             x="0px"
