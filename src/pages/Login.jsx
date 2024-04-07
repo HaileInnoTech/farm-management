@@ -1,20 +1,62 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [isValid, setIsValid] = useState(true);
   const [password, setPassword] = useState("");
-  const navigation = useNavigate();
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      console.log("User in login: ", user);
+      navigate(`/dashboard/${user.user.email}`, { state: { user: user } });
+    }
+  }, [user, navigate]);
+
+  const fetchUser = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:4000/login/oauth2/google/success",
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Credentials": true,
+          },
+        }
+      );
+      if (response.status === 200) {
+        const data = await response.json();
+        setUser(data);
+      } else {
+        // Handle non-200 status code
+        console.log("Failed to fetch user data");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
   const handleLogin = () => {
-    navigation("/dashboard");
     console.log("Login clicked");
   };
 
   const handleGoogleLogin = () => {
     const url = "http://localhost:4000/login/oauth2/google";
-    window.open(url, "_blank", "width=500,height=600");
+
+    const newWindow = window.open(url, "_blank", "width=500,height=600");
+    if (newWindow) {
+      let timer = setInterval(() => {
+        if (newWindow.closed) {
+          clearInterval(timer);
+          fetchUser();
+        }
+      }, 1000);
+    }
   };
+
   return (
     <>
       <form action="">
@@ -117,7 +159,7 @@ export default function Login() {
           </span>
         </button>
         <button
-          className="flex items-center justify-center px-4 py-2 mt-2 space-x-3 text-sm text-center  text-gray-900 transition-colors duration-200 transform border rounded-lg dark:text-gray-300 dark:border-gray-300 hover:bg-gray-600 dark:hover:bg-gray-700"
+          className="flex items-center justify-center px-4 py-2 mt-2 space-x-3 text-sm text-center  text-gray-900 transition-colors duration-200 transform border rounded-lg dark:text-gray-300 dark:border-gray-300 hover:bg-gray-200 "
           onClick={handleGoogleLogin}
         >
           <svg

@@ -1,6 +1,25 @@
 import DashboardLayout from "./DashboardLayout";
-
 export default function SideBar() {
+  const handleSignOut = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/login/logout", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+      });
+      if (response.status === 200) {
+        console.log("Sign out successful");
+      } else {
+        console.log("Failed to sign out");
+      }
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
   return (
     <>
       <button
@@ -145,7 +164,12 @@ export default function SideBar() {
                     d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"
                   />
                 </svg>
-                <span className="flex-1 ms-3 whitespace-nowrap">Sign In</span>
+                <span
+                  className="flex-1 ms-3 whitespace-nowrap"
+                  onClick={handleSignOut}
+                >
+                  Sign Out
+                </span>
               </a>
             </li>
             <li>
